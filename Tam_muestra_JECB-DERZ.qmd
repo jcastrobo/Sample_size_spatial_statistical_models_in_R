@@ -1,0 +1,602 @@
+---
+title: "Determinación de tamaños de muestra para detectar estructura espacial de la matera orgánica del suelo en suelos de páramos"
+lang: es
+date: 2022/11/02
+author: "John Erick Castro Bocanegra"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    css: estilo1.css
+editor: visual
+---
+
+## Se cargan los paquetes que serán usados
+
+```{r}
+library(gstat)
+library(dplyr)
+library(geoR)
+```
+
+## Definición de los parámetros que serán usados en las modelaciones
+
+Para todas las simulaciones de los modelos se utilizarán los mismos parámetros, los cuales son los siguientes:
+
+Rango práctico = 300 metros (bibliografía)
+
+Media de los datos = 21.74
+
+Se define el rango de la asíntota o valor Psill
+
+Se define el Nugget (en este caso al 0.05 del rango práctico)
+
+Los tamaños de muestra definidos son de 20 hasta 200 datos, haciendo una simulación a un aumento de cada 20 datos
+
+```{r}
+rango_practico = 300
+mean = 21.74
+sill_var = c(6, 38)
+nugget_esc = c(0.05, 0.5, 0.95)
+dista_esc = c(0.05, 0.5, 0.95) 
+```
+
+## Modelo Gaussiano
+
+Con los parámetros definidos anteriormente se hace la simulación usando un modelo Gaussiano
+
+```{r}
+#| echo: true
+#| eval: false
+
+itera = expand.grid(sill=sill_var, nugget=nugget_esc, distancia=dista_esc)
+
+simulate_data <- NULL
+
+
+for(combinacion in 1:18){
+  parameters <- itera[combinacion,]
+  
+  rango_practico_sim <- rango_practico*parameters["distancia"]
+  
+  
+  modeloGauss <- vgm(psill=as.numeric(parameters["sill"]), 
+                      range=as.numeric(rango_practico_sim/sqrt(3)), 
+                      nugget=as.numeric(parameters["sill"]*parameters["nugget"]), 
+                      model='Gau')
+  
+  object <- gstat(formula = z~1, 
+                      locations = ~x+y, 
+                      dummy = T, 
+                      beta = mean, 
+                      model = modeloGauss,
+                      nmax = 20)
+  
+  coor_sim <- expand.grid(x = seq(0, 1600, length=200), y = seq(0, 1600, length=200))
+  
+  datosGauss <- predict(object, 
+                         newdata = coor_sim,
+                         nsim = 1)
+  
+  
+  # Creación de distintos tamaños de muestra 
+  
+  tam_muestras <- seq(20, 200, 20)
+  n_simul <- 500
+  
+  potencia_sim <- NULL
+  
+  for(j in 1:length(tam_muestras)){
+    l1 <- NULL
+    for (i in 1:n_simul){
+      id_muestras   <- sample(1:nrow(datosGauss), tam_muestras[j])
+      datosGaussModel_2 <- datosGauss[id_muestras,]
+      datosGauss_geo_d <- as.geodata(datosGaussModel_2)
+      semivariograma  <- variog(datosGauss_geo_d,
+                                messages = FALSE)
+      mc1 <- variog.mc.env(datosGauss_geo_d, obj = semivariograma, nsim = 95,
+                           messages = FALSE)
+      r1 <- any(mc1$v.lower > semivariograma$v)
+      l1 <- c(l1,r1)
+    }
+    
+    potencia_sim <- c(potencia_sim, sum(l1)/n_simul)
+    
+  }
+  
+  poten_d <- t(data.frame(potencia_sim))
+  colnames(poten_d) <- as.character(tam_muestras)
+  
+  File <- data.frame(modelo = "Gaussiano", sill = parameters["sill"], 
+                     Nugget = parameters["sill"]*parameters["nugget"], 
+                     RangoPrac = rango_practico_sim)
+  
+  File <- cbind(File, poten_d)
+  
+  simulate_data <- rbind(simulate_data, File)
+  
+}
+
+simulate_data
+(Gaussiano <- as.data.frame(simulate_data))
+write.csv(simulate_data, "C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Gaussiano")
+```
+
+```{r}
+Gauss <- read.csv2("Modelo Gaussiano.csv", row.names = 1)
+Gauss
+```
+
+## Modelo Exponencial
+
+Con los parámetros definidos al inicio se hace la simulación usando un modelo Exponencial
+
+```{r}
+#| echo: true
+#| eval: false
+
+simulate_data <- NULL
+
+
+for(combinacion in 1:18){
+  parameters <- itera[combinacion,]
+  
+  rango_practico_sim <- rango_practico*parameters["distancia"]
+  
+  
+  modeloGauss <- vgm(psill=as.numeric(parameters["sill"]), 
+                     range=as.numeric(rango_practico_sim/3), 
+                     nugget=as.numeric(parameters["sill"]*parameters["nugget"]), 
+                     model='Exp')
+  
+  object <- gstat(formula = z~1, 
+                  locations = ~x+y, 
+                  dummy = T, 
+                  beta = mean, 
+                  model = modeloGauss,
+                  nmax = 20)
+  
+  coor_sim <- expand.grid(x = seq(0, 1600, length=200), y = seq(0, 1600, length=200))
+  
+  datosGauss <- predict(object, 
+                        newdata = coor_sim,
+                        nsim = 1)
+  
+  
+  # Creación de distintos tamaños de muestra 
+  
+  tam_muestras <- seq(20, 200, 20)
+  n_simul <- 500
+  
+  potencia_sim <- NULL
+  
+  for(j in 1:length(tam_muestras)){
+    l1 <- NULL
+    for (i in 1:n_simul){
+      id_muestras   <- sample(1:nrow(datosGauss), tam_muestras[j])
+      datosGaussModel_2 <- datosGauss[id_muestras,]
+      datosGauss_geo_d <- as.geodata(datosGaussModel_2)
+      semivariograma  <- variog(datosGauss_geo_d,
+                                messages = FALSE)
+      mc1 <- variog.mc.env(datosGauss_geo_d, obj = semivariograma, nsim = 95,
+                           messages = FALSE)
+      r1 <- any(mc1$v.lower > semivariograma$v)
+      l1 <- c(l1,r1)
+    }
+    
+    potencia_sim <- c(potencia_sim, sum(l1)/n_simul)    
+  }
+  
+  poten_d <- t(data.frame(potencia_sim))
+  colnames(poten_d) <- as.character(tam_muestras)
+  
+  File <- data.frame(modelo = "Exponencial", sill = parameters["sill"], 
+                     Nugget = parameters["sill"]*parameters["nugget"], 
+                     RangoPrac = rango_practico_sim)
+  
+  File <- cbind(File, poten_d)
+  
+  simulate_data <- rbind(simulate_data, File)
+  
+}
+
+simulate_data
+(Exponencial <- as.data.frame(simulate_data))
+write.csv(simulate_data, "C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Exponencial")
+```
+
+```{r}
+Exponencial <- read.csv2("Modelo exponencial.csv", row.names = 1)
+Exponencial
+```
+
+## Modelo Matérn
+
+Con los parámetros definidos al inicio se hace la simulación usando un modelo Matérn.
+
+Se hace la determinación del rango práctico del modelo Matérn
+
+```{r}
+#| echo: true
+#| eval: false
+
+fM <- function(x, kappa, rho = 0.05, phi = 1, opt = 1){
+  if (opt == 1){
+    library(geoR)
+    cov.spatial(x, cov.pars = c(1,phi), 
+                kappa=kappa, cov.model = "matern") - rho
+  }else{
+    library(RandomFields)
+    modelo <- RMmatern(var = 1, nu = kappa, scale = phi)
+    RFcov(modelo, x) - rho
+  }
+}
+
+fM(c(2, 8), kappa = 1)
+fM(c(2, 8), kappa = 2)
+
+(r1 <- uniroot(fM, c(2,11), kappa = 1)$root)
+(r2 <- uniroot(fM, c(2,11), kappa = 2)$root)
+
+RangoP <- 300
+phi1<-(phi1 <- RangoP / r1)
+phi2<-(phi2 <- RangoP / r2)
+```
+
+### Simulación del modelo con el rango práctico de 300 metros con Kappa = 1
+
+```{r}
+#| echo: true
+#| eval: false
+
+RangoP <- 300
+kappax <- 1
+fM(c(1, 8), kappa = 1)
+(rx <- uniroot(fM, c(1, 8), kappa = kappax, opt = 1)$root)
+phi_model<-(phix <- RangoP/rx)
+phi_model
+
+simulate_data <- NULL
+
+
+for(combinacion in 1:18){
+  parameters <- itera[combinacion,]
+  
+  rango_practico_sim <- rango_practico*parameters["distancia"]
+  
+  
+  modeloGauss <- vgm(psill=as.numeric(parameters["sill"]), 
+                     range=as.numeric(rango_practico_sim/rx), 
+                     nugget=as.numeric(parameters["sill"]*parameters["nugget"]), 
+                     model='Mat', kappa = kappax)
+  
+  object <- gstat(formula = z~1, 
+                  locations = ~x+y, 
+                  dummy = T, 
+                  beta = mean, 
+                  model = modeloGauss,
+                  nmax = 20)
+  
+  coor_sim <- expand.grid(x = seq(0, 1600, length=200), y = seq(0, 1600, length=200))
+  
+  datosGauss <- predict(object, 
+                        newdata = coor_sim,
+                        nsim = 1)
+  
+  
+  tam_muestras <- seq(20, 200, 20)
+  n_simul <- 500
+  
+  potencia_sim <- NULL
+  
+  for(j in 1:length(tam_muestras)){
+    l1 <- NULL
+    for (i in 1:n_simul){
+      id_muestras   <- sample(1:nrow(datosGauss), tam_muestras[j])
+      datosGaussModel_2 <- datosGauss[id_muestras,]
+      datosGauss_geo_d <- as.geodata(datosGaussModel_2)
+      semivariograma  <- variog(datosGauss_geo_d,
+                                messages = FALSE)
+      mc1 <- variog.mc.env(datosGauss_geo_d, obj = semivariograma, nsim = 95,
+                           messages = FALSE)
+      r1 <- any(mc1$v.lower > semivariograma$v)
+      l1 <- c(l1,r1)
+    }
+    
+    potencia_sim <- c(potencia_sim, sum(l1)/n_simul)    
+  }
+  
+  poten_d <- t(data.frame(potencia_sim))
+  colnames(poten_d) <- as.character(tam_muestras)
+  
+  File <- data.frame(modelo = "Matern", sill = parameters["sill"], 
+                     Nugget = parameters["sill"]*parameters["nugget"], 
+                     RangoPrac = rango_practico_sim)
+  
+  File <- cbind(File, poten_d)
+  
+  simulate_data <- rbind(simulate_data, File)
+  
+}
+
+simulate_data
+(MATTERN_KAPPA_1 <- as.data.frame(simulate_data))
+write.csv(simulate_data, "C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Matérn1")
+```
+
+```{r}
+MM_K_1 <- read.csv2("Matern_kappa1.csv", row.names = 1)
+MM_K_1
+```
+
+### Simulación del modelo con el rango práctico de 300 metros con Kappa = 2
+
+```{r}
+#| echo: true
+#| eval: false
+
+RangoP <- 300
+kappax <- 2
+fM(c(1, 8), kappa = 2)
+(rx <- uniroot(fM, c(1, 8), kappa = kappax, opt = 1)$root)
+phi_model<-(phix <- RangoP/rx)
+phi_model
+
+
+simulate_data <- NULL
+
+
+for(combinacion in 1:18){
+  parameters <- itera[combinacion,]
+  
+  rango_practico_sim <- rango_practico*parameters["distancia"]
+  
+  
+  modeloGauss <- vgm(psill=as.numeric(parameters["sill"]), 
+                     range=as.numeric(rango_practico_sim/rx), 
+                     nugget=as.numeric(parameters["sill"]*parameters["nugget"]), 
+                     model='Mat', kappa = kappax)
+  
+  object <- gstat(formula = z~1, 
+                  locations = ~x+y, 
+                  dummy = T, 
+                  beta = mean, 
+                  model = modeloGauss,
+                  nmax = 20)
+  
+  coor_sim <- expand.grid(x = seq(0, 1600, length=200), y = seq(0, 1600, length=200))
+  
+  datosGauss <- predict(object, 
+                        newdata = coor_sim,
+                        nsim = 1)
+  
+  
+  # Creación de distintos tamaños de muestra 
+  
+  tam_muestras <- seq(20, 200, 20)
+  n_simul <- 500
+  
+  potencia_sim <- NULL
+  
+  for(j in 1:length(tam_muestras)){
+    l1 <- NULL
+    for (i in 1:n_simul){
+      id_muestras   <- sample(1:nrow(datosGauss), tam_muestras[j])
+      datosGaussModel_2 <- datosGauss[id_muestras,]
+      datosGauss_geo_d <- as.geodata(datosGaussModel_2)
+      semivariograma  <- variog(datosGauss_geo_d,
+                                messages = FALSE)
+      mc1 <- variog.mc.env(datosGauss_geo_d, obj = semivariograma, nsim = 95,
+                           messages = FALSE)
+      r1 <- any(mc1$v.lower > semivariograma$v)
+      l1 <- c(l1,r1)
+    }
+    
+    potencia_sim <- c(potencia_sim, sum(l1)/n_simul)    
+  }
+  
+  poten_d <- t(data.frame(potencia_sim))
+  colnames(poten_d) <- as.character(tam_muestras)
+  
+  File <- data.frame(modelo = "Matern", sill = parameters["sill"], 
+                     Nugget = parameters["sill"]*parameters["nugget"], 
+                     RangoPrac = rango_practico_sim)
+  
+  File <- cbind(File, poten_d)
+  
+  simulate_data <- rbind(simulate_data, File)
+  
+}
+
+simulate_data
+(Matter_kappa_2 <- as.data.frame(simulate_data))
+write.csv(simulate_data, "C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Matérn2")
+```
+
+```{r}
+MM_K_2 <- read.csv2("Matern_kappa2.csv", row.names = 1)
+MM_K_2
+```
+
+## Análisis de resultados
+
+En el escenario con el modelo Gaussiano, modelado al 0.05 (rango práctico de 15 metros) e independiente del número de muestras que se tomen de materia orgánica, se observa que hay una probabilidad muy alta de equivocarse al intentar detectar estructura espacial, ya que la potencia de la prueba es demasiado baja, presentando valores de 0.14 hacia abajo.
+
+En el modelo Gaussiano, con un rango práctico de 150 metros, en el escenario moelado al 0.05, con un mínimo de 120 datos de materia orgánica se alcanza una potencia de la prueba del 0.756, es decir, que con un tamaño de muestra de mínimo 120 datos, hay una alta probabilidad (75.6%) de no equivocarse al intentar detectar estructura espacial. Al aumentar la varianza en este mismo escenario, se observa que se debe aumentar el tamaño mínimo de muestra a 140 datos para que sea aceptable la potencia de la prueba.
+
+Los escenarios a los cuales se ajusta mejor el modelo Gaussiano, es decir los escenarios en los cuales el tamaño mínimo de muestra es menor para no equivocarse al intentar detectar estructura espacial son los modelos con el rango práctico de 285 metros al 0.05, ya que la potencia de la prueba en ambos escenarios (varianza alta y baja) es superior al 0.75 con sólo 40 datos.
+
+Los escenarios del modelo exponencial, al intentar detectar estructura espacial con un rango práctico de 15 metros, la potencia de la prueba es bastante baja, por lo cual existe una enorme probbilidad de equivocarse al intentar detectar estructura espacial.
+
+Los escenarios del modelo exponencial con un rango práctico de 150 metros, son muy poco útiles para intentar detectar estructura espacial, es decir, hay una alta probabilidad de equivocarse, ni si quiera con un mínimo de 200 datos.
+
+Los escenarios de los modelos exponenciales con un rango práctico de 285 metros (0.05 y 0.5), sirven para intentar detectar estructura espacial, ya que con oca varianza y un tamaño mínimo de 100 muestras, la potencia de la prueba es aceptable por lo cual hay una muy baja probabilidad de equivocarse.
+
+Los escenarios en el modelo Matern (kappa = 1), tanto a 15 metros como a 15 metros de rango práctico no son útiles para encontrar estructura espacal, ya que la potencia de la prueba es menor a 0.70. El mejor escenario para disminuir la probabilidad de error al intentar detectar estructura espacial con el tamaño de muestra mas pequeño (80 datos) es con un rango práctico de 285 metros (0.05).
+
+Al igual que los escenarios anteriores, el modelo Matern con kappa = 2, los resultados son bastante similares, aunque en este nuevo modelo Matern, el tamaño mínimo de muestra para que la potencia de la prueba sea aceptable es de 60 muestras con un rango práctico de 285 metros.
+
+Finalmente, la distribución espacial de la variable de estudio, en este caso materia orgánica, se ajusta mejor al modelo Gaussiano, ya que con un tamaño mínimo de 40 muestras en un área de 3200 metros cuadrados tengo una potencia de la prueba superior al 0.7, lo cual la probabilidad de equivocación al intentar detectar estructura espacial es muy baja.
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+Gauss<-read.csv("gauss_corregido_def_1:18.csv")
+Exponencial<-read.csv("exp_ajustado_def_1:18.csv")
+Matter_1<-read.csv("mattern_1_ajustado_1:18_kappa_1.csv")
+Matter_2<-read.csv("mattern_kappaka_2_ajustado_1:18.csv")
+```
+
+```{r}
+Todos<-rbind(Gauss, Exponencial, Matter_1, Matter_2)
+Todos
+```
+
+```{r}
+plot15<-as.data.frame(Todos[(Todos$distancia == 15) & (Todos$sill ==38)& (Todos$sill.1==36.1),])
+plot15
+
+plot150<-as.data.frame(Todos[(Todos$distancia == 150) & (Todos$sill ==38)& (Todos$sill.1==36.1),])
+plot150
+
+
+plot285<-as.data.frame(Todos[(Todos$distancia == 285) & (Todos$sill ==38)& (Todos$sill.1==36.1),])
+plot150
+```
+
+```{r}
+columnas<-plot15[,6:15]
+nomCol <- colnames(columnas)
+modelos <- plot15[,2]
+potencia<-NULL
+nombresCol <- NULL
+modelosDat <- NULL
+for(i in 1:10){
+  potencia <- c(potencia, columnas[,i])
+  nombresCol <- c(nombresCol, rep(as.numeric(substr(nomCol[i],2,4)), 4))
+  modelosDat <- c(modelosDat, modelos)
+}
+
+datos24 = data.frame(modelo=modelosDat, nmuestra=nombresCol, potencia=potencia)
+datos24
+
+columnas<-plot150[,6:15]
+nomCol15 <- colnames(columnas)
+modelos <- plot150[,2]
+potencia<-NULL
+nombresCol <- NULL
+modelosDat <- NULL
+for(i in 1:10){
+  potencia <- c(potencia, columnas[,i])
+  nombresCol <- c(nombresCol, rep(as.numeric(substr(nomCol[i],2,4)), 4))
+  modelosDat <- c(modelosDat, modelos)
+}
+
+datos150 = data.frame(modelo=modelosDat, nmuestra=nombresCol, potencia=potencia)
+datos150
+
+
+
+
+
+columnas<-plot285[,6:15]
+nomCol15 <- colnames(columnas)
+modelos <- plot285[,2]
+potencia<-NULL
+nombresCol <- NULL
+modelosDat <- NULL
+for(i in 1:10){
+  potencia <- c(potencia, columnas[,i])
+  nombresCol <- c(nombresCol, rep(as.numeric(substr(nomCol[i],2,4)), 4))
+  modelosDat <- c(modelosDat, modelos)
+}
+
+datos285 = data.frame(modelo=modelosDat, nmuestra=nombresCol, potencia=potencia)
+datos285
+
+```
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+library(grid)
+library(scales)
+library(forecast)
+library(tibble)
+library(dplyr)
+library(lubridate)
+library(egg)
+library(cowplot)
+
+
+
+polish <- theme(text = element_text(size=11)) +
+  theme(axis.text.x=element_text(angle=45, hjust=1))+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(panel.background = element_rect(fill = 'white', colour = 'white', size = 1.2, linetype = 7))+
+  theme(text=element_text(family="arial", face="bold", size=12))+
+  theme(axis.title.y = element_text(face="bold", family = "Times New Roman", vjust=1.5, colour="black", hjust = 0.5, size=rel(1.2)))+
+  theme(axis.title.x = element_text(face="bold", family = "Times New Roman", vjust=0.5, colour="black", size=rel(1.2)))+
+  theme(axis.text.x = element_text(family= "Times New Roman",face = "plain", colour="black", size=rel(1.1)))+
+  theme(axis.text.y = element_text(family= "Times New Roman",face = "plain", colour="black", size=rel(1.1)))+
+  theme(axis.line = element_line(size = 1, colour = "black"))+
+  theme(legend.title = element_text(colour="black", size=12, face="bold", family = "Times New Roman", vjust = 1))+
+  theme(legend.key = element_rect(fill = "white"))+
+  theme(legend.text=element_text(size=12, face="plain"))
+```
+
+```{r, warning=FALSE}
+
+dist_15<- ggplot(datos24, aes(x=nmuestra, y=potencia, group=modelo, color=modelo))+ 
+  geom_line()+
+  xlab(expression("Número de muestas"))+
+  ylab(expression("Potencia"))+
+  scale_x_continuous(breaks = seq(20,200,20), lim=c(20,200))+
+  scale_y_continuous(breaks = seq(0,1,0.2), lim=c(0,1))+
+  theme(legend.position="none")+
+  theme(plot.title = element_text(color="black", size=12, family="Times New Roman", face = "bold", hjust = 0.5))+
+  ggtitle("Escenario con distancia de 15 metros")+
+  polish
+dist_15
+##2da distancia
+dist_150<- ggplot(datos150, aes(x=nmuestra, y=potencia, group=modelo, color=modelo))+ 
+  geom_line()+
+  xlab(expression("Número de muestas"))+
+  ylab(expression("Potencia"))+
+  scale_x_continuous(breaks = seq(20,200,20), lim=c(20,200))+
+  scale_y_continuous(breaks = seq(0,1,0.2), lim=c(0,1))+
+  theme(legend.position="none")+
+  theme(plot.title = element_text(color="black", size=12, family="Times New Roman", face = "bold", hjust = 0.5))+
+  ggtitle("Escenario con distancia de 150 metros")+
+  polish
+
+
+dist_150
+
+##tercera_distancia
+dist_285<- ggplot(datos285, aes(x=nmuestra, y=potencia, group=modelo, color=modelo))+ 
+  geom_line()+
+  xlab(expression("Número de muestas"))+
+  ylab(expression("Potencia"))+
+  scale_x_continuous(breaks = seq(20,200,20), lim=c(20,200))+
+  scale_y_continuous(breaks = seq(0,1,0.2), lim=c(0,1))+
+  theme(legend.position="bottom")+
+  theme(plot.title = element_text(color="black", size=12, family="Times New Roman", face = "bold", hjust = 0.5))+
+  ggtitle("Escenario con distancia de 285 metros")+
+  polish
+
+
+dist_285
+
+legend <- get_legend(
+  # create some space to the left of the legend
+  dist_15 + theme(legend.box.margin = margin(0, 0, 0, 12))
+)
+plot_grid(dist_15, dist_150, dist_285,legend, align = "hv",  rel_heights = c(2.5,3.25),
+  rel_widths = c(2,2) )
+
+```
+
+De acuerdo con los resultados obtenidos, tanto el tamaño de muestra como la distancia resultan ser un determinante importante para una potencia alta en el muestreo. Es importante resaltar que no necesariamente a mayor tamaño muestral mayor probabilidad de dectar con robustez la estructura espacial. A pesar de que la materia organica es una variable caracterizada por una alta heterogeneidad y variabilidad espacial (cambios cuantitativos cuando se compara con otra dimensión espacial o temporal), en este ejemplo la selección del tamaño de muestra índica que a menor distancia es probable no detectar estructura espacial, la cual se encuentra a mayores distancias y a un tamaño muestral ni muy reducido, pero tampoco tan excesivamente mayor

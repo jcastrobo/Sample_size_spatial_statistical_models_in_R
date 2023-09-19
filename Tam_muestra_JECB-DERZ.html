@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John Erick Castro Bocanegra, David Esteban Restrepo Zuluaga">
+
+<title>Determinación de tamaños de muestra para detectar estructura espacial de la matera orgánica del suelo en suelos de páramos</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Tam_muestra_JECB-DERZ_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Tam_muestra_JECB-DERZ_files/libs/quarto-html/quarto.js"></script>
+<script src="Tam_muestra_JECB-DERZ_files/libs/quarto-html/popper.min.js"></script>
+<script src="Tam_muestra_JECB-DERZ_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Tam_muestra_JECB-DERZ_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Tam_muestra_JECB-DERZ_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Tam_muestra_JECB-DERZ_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Tam_muestra_JECB-DERZ_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Tam_muestra_JECB-DERZ_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Tam_muestra_JECB-DERZ_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="estilo1.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Indice de contenidos</h2>
+   
+  <ul>
+  <li><a href="#se-cargan-los-paquetes-que-serán-usados" id="toc-se-cargan-los-paquetes-que-serán-usados" class="nav-link active" data-scroll-target="#se-cargan-los-paquetes-que-serán-usados">Se cargan los paquetes que serán usados</a></li>
+  <li><a href="#definición-de-los-parámetros-que-serán-usados-en-las-modelaciones" id="toc-definición-de-los-parámetros-que-serán-usados-en-las-modelaciones" class="nav-link" data-scroll-target="#definición-de-los-parámetros-que-serán-usados-en-las-modelaciones">Definición de los parámetros que serán usados en las modelaciones</a></li>
+  <li><a href="#modelo-gaussiano" id="toc-modelo-gaussiano" class="nav-link" data-scroll-target="#modelo-gaussiano">Modelo Gaussiano</a></li>
+  <li><a href="#modelo-exponencial" id="toc-modelo-exponencial" class="nav-link" data-scroll-target="#modelo-exponencial">Modelo Exponencial</a></li>
+  <li><a href="#modelo-matérn" id="toc-modelo-matérn" class="nav-link" data-scroll-target="#modelo-matérn">Modelo Matérn</a>
+  <ul class="collapse">
+  <li><a href="#simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-1" id="toc-simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-1" class="nav-link" data-scroll-target="#simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-1">Simulación del modelo con el rango práctico de 300 metros con Kappa = 1</a></li>
+  <li><a href="#simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-2" id="toc-simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-2" class="nav-link" data-scroll-target="#simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-2">Simulación del modelo con el rango práctico de 300 metros con Kappa = 2</a></li>
+  </ul></li>
+  <li><a href="#análisis-de-resultados" id="toc-análisis-de-resultados" class="nav-link" data-scroll-target="#análisis-de-resultados">Análisis de resultados</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Determinación de tamaños de muestra para detectar estructura espacial de la matera orgánica del suelo en suelos de páramos</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>John Erick Castro Bocanegra, David Esteban Restrepo Zuluaga </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de Publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2 de noviembre de 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="se-cargan-los-paquetes-que-serán-usados" class="level2">
+<h2 class="anchored" data-anchor-id="se-cargan-los-paquetes-que-serán-usados">Se cargan los paquetes que serán usados</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gstat)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.1
+✔ readr   2.1.2     ✔ forcats 0.5.2
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geoR)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>--------------------------------------------------------------
+ Analysis of Geostatistical Data
+ For an Introduction to geoR go to http://www.leg.ufpr.br/geoR
+ geoR version 1.9-2 (built on 2022-08-09) is now loaded
+--------------------------------------------------------------</code></pre>
+</div>
+</div>
+</section>
+<section id="definición-de-los-parámetros-que-serán-usados-en-las-modelaciones" class="level2">
+<h2 class="anchored" data-anchor-id="definición-de-los-parámetros-que-serán-usados-en-las-modelaciones">Definición de los parámetros que serán usados en las modelaciones</h2>
+<p>Para todas las simulaciones de los modelos se utilizarán los mismos parámetros, los cuales son los siguientes:</p>
+<p>Rango práctico = 300 metros (bibliografía)</p>
+<p>Media de los datos = 21.74</p>
+<p>Se define el rango de la asíntota o valor Psill</p>
+<p>Se define el Nugget (en este caso al 0.05 del rango práctico)</p>
+<p>Los tamaños de muestra definidos son de 20 hasta 200 datos, haciendo una simulación a un aumento de cada 20 datos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rango_practico <span class="ot">=</span> <span class="dv">300</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">=</span> <span class="fl">21.74</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sill_var <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">38</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>nugget_esc <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>dista_esc <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.95</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modelo-gaussiano" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-gaussiano">Modelo Gaussiano</h2>
+<p>Con los parámetros definidos anteriormente se hace la simulación usando un modelo Gaussiano</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>itera <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="at">sill=</span>sill_var, <span class="at">nugget=</span>nugget_esc, <span class="at">distancia=</span>dista_esc)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>simulate_data <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(combinacion <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">18</span>){</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  parameters <span class="ot">&lt;-</span> itera[combinacion,]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  rango_practico_sim <span class="ot">&lt;-</span> rango_practico<span class="sc">*</span>parameters[<span class="st">"distancia"</span>]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  modeloGauss <span class="ot">&lt;-</span> <span class="fu">vgm</span>(<span class="at">psill=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]), </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">range=</span><span class="fu">as.numeric</span>(rango_practico_sim<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">3</span>)), </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                      <span class="at">nugget=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>]), </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                      <span class="at">model=</span><span class="st">'Gau'</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  object <span class="ot">&lt;-</span> <span class="fu">gstat</span>(<span class="at">formula =</span> z<span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                      <span class="at">locations =</span> <span class="sc">~</span>x<span class="sc">+</span>y, </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">dummy =</span> T, </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                      <span class="at">beta =</span> mean, </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                      <span class="at">model =</span> modeloGauss,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                      <span class="at">nmax =</span> <span class="dv">20</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  coor_sim <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>), <span class="at">y =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>))</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  datosGauss <span class="ot">&lt;-</span> <span class="fu">predict</span>(object, </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> coor_sim,</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                         <span class="at">nsim =</span> <span class="dv">1</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creación de distintos tamaños de muestra </span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  tam_muestras <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">20</span>)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>  n_simul <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  potencia_sim <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tam_muestras)){</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    l1 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simul){</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>      id_muestras   <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(datosGauss), tam_muestras[j])</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>      datosGaussModel_2 <span class="ot">&lt;-</span> datosGauss[id_muestras,]</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>      datosGauss_geo_d <span class="ot">&lt;-</span> <span class="fu">as.geodata</span>(datosGaussModel_2)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>      semivariograma  <span class="ot">&lt;-</span> <span class="fu">variog</span>(datosGauss_geo_d,</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>                                <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>      mc1 <span class="ot">&lt;-</span> <span class="fu">variog.mc.env</span>(datosGauss_geo_d, <span class="at">obj =</span> semivariograma, <span class="at">nsim =</span> <span class="dv">95</span>,</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>                           <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>      r1 <span class="ot">&lt;-</span> <span class="fu">any</span>(mc1<span class="sc">$</span>v.lower <span class="sc">&gt;</span> semivariograma<span class="sc">$</span>v)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>      l1 <span class="ot">&lt;-</span> <span class="fu">c</span>(l1,r1)</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    potencia_sim <span class="ot">&lt;-</span> <span class="fu">c</span>(potencia_sim, <span class="fu">sum</span>(l1)<span class="sc">/</span>n_simul)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>  poten_d <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">data.frame</span>(potencia_sim))</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(poten_d) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(tam_muestras)</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">modelo =</span> <span class="st">"Gaussiano"</span>, <span class="at">sill =</span> parameters[<span class="st">"sill"</span>], </span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Nugget =</span> parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>], </span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>                     <span class="at">RangoPrac =</span> rango_practico_sim)</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">cbind</span>(File, poten_d)</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>  simulate_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(simulate_data, File)</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>simulate_data</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>(Gaussiano <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(simulate_data))</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(simulate_data, <span class="st">"C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Gaussiano"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Gauss <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"Modelo Gaussiano.csv"</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Gauss</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      modelo sill sill.1 distancia   X20   X40   X60   X80  X100  X120  X140
+1  Gaussiano    6    0.3        15 0.096 0.108 0.134 0.124 0.116  0.12 0.142
+2  Gaussiano   38    1.9        15 0.134 0.128 0.126 0.136 0.102  0.11 0.112
+3  Gaussiano    6      3        15 0.128 0.152 0.126 0.122 0.134 0.098 0.128
+4  Gaussiano   38     19        15 0.136 0.144 0.106 0.112 0.122 0.122 0.132
+5  Gaussiano    6    5.7        15 0.112 0.114 0.106 0.124 0.128 0.108 0.114
+6  Gaussiano   38   36.1        15 0.104  0.12 0.122 0.102   0.1 0.134 0.102
+7  Gaussiano    6    0.3       150 0.144 0.248 0.358 0.532  0.68 0.756  0.85
+8  Gaussiano   38    1.9       150 0.176 0.258 0.326 0.444 0.584 0.652 0.772
+9  Gaussiano    6      3       150 0.132 0.208 0.286 0.322 0.462 0.546 0.658
+10 Gaussiano   38     19       150 0.138 0.214 0.302 0.402 0.494 0.624 0.724
+11 Gaussiano    6    5.7       150 0.168 0.174 0.234 0.324 0.376 0.466  0.56
+12 Gaussiano   38   36.1       150  0.12 0.152 0.166 0.224 0.272  0.32 0.364
+13 Gaussiano    6    0.3       285 0.296 0.758  0.96 0.998     1     1     1
+14 Gaussiano   38    1.9       285 0.318 0.824  0.99     1     1     1     1
+15 Gaussiano    6      3       285 0.136  0.27 0.384 0.524 0.668 0.844 0.896
+16 Gaussiano   38     19       285 0.162 0.382  0.62 0.824 0.924 0.986 0.998
+17 Gaussiano    6    5.7       285 0.142 0.194 0.318 0.456 0.614  0.69  0.83
+18 Gaussiano   38   36.1       285 0.152 0.216 0.358 0.504 0.612 0.756 0.846
+    X160  X180  X200
+1  0.112 0.106  0.09
+2  0.092 0.116 0.086
+3  0.148 0.072 0.148
+4  0.114  0.11 0.088
+5   0.11 0.116 0.118
+6  0.128 0.122  0.12
+7  0.934 0.962 0.988
+8  0.896 0.918  0.95
+9  0.776 0.812  0.89
+10 0.814 0.884 0.896
+11 0.648 0.706 0.754
+12 0.444  0.48  0.57
+13     1     1     1
+14     1     1     1
+15 0.966 0.992 0.994
+16     1     1     1
+17  0.87 0.938 0.982
+18 0.934  0.96 0.972</code></pre>
+</div>
+</div>
+</section>
+<section id="modelo-exponencial" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-exponencial">Modelo Exponencial</h2>
+<p>Con los parámetros definidos al inicio se hace la simulación usando un modelo Exponencial</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>simulate_data <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(combinacion <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">18</span>){</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  parameters <span class="ot">&lt;-</span> itera[combinacion,]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  rango_practico_sim <span class="ot">&lt;-</span> rango_practico<span class="sc">*</span>parameters[<span class="st">"distancia"</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  modeloGauss <span class="ot">&lt;-</span> <span class="fu">vgm</span>(<span class="at">psill=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]), </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">range=</span><span class="fu">as.numeric</span>(rango_practico_sim<span class="sc">/</span><span class="dv">3</span>), </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nugget=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>]), </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">model=</span><span class="st">'Exp'</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  object <span class="ot">&lt;-</span> <span class="fu">gstat</span>(<span class="at">formula =</span> z<span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locations =</span> <span class="sc">~</span>x<span class="sc">+</span>y, </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dummy =</span> T, </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                  <span class="at">beta =</span> mean, </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> modeloGauss,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nmax =</span> <span class="dv">20</span>)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  coor_sim <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>), <span class="at">y =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>))</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  datosGauss <span class="ot">&lt;-</span> <span class="fu">predict</span>(object, </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                        <span class="at">newdata =</span> coor_sim,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                        <span class="at">nsim =</span> <span class="dv">1</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creación de distintos tamaños de muestra </span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  tam_muestras <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">20</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  n_simul <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  potencia_sim <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tam_muestras)){</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    l1 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simul){</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>      id_muestras   <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(datosGauss), tam_muestras[j])</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>      datosGaussModel_2 <span class="ot">&lt;-</span> datosGauss[id_muestras,]</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>      datosGauss_geo_d <span class="ot">&lt;-</span> <span class="fu">as.geodata</span>(datosGaussModel_2)</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>      semivariograma  <span class="ot">&lt;-</span> <span class="fu">variog</span>(datosGauss_geo_d,</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>                                <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>      mc1 <span class="ot">&lt;-</span> <span class="fu">variog.mc.env</span>(datosGauss_geo_d, <span class="at">obj =</span> semivariograma, <span class="at">nsim =</span> <span class="dv">95</span>,</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>                           <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>      r1 <span class="ot">&lt;-</span> <span class="fu">any</span>(mc1<span class="sc">$</span>v.lower <span class="sc">&gt;</span> semivariograma<span class="sc">$</span>v)</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>      l1 <span class="ot">&lt;-</span> <span class="fu">c</span>(l1,r1)</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    potencia_sim <span class="ot">&lt;-</span> <span class="fu">c</span>(potencia_sim, <span class="fu">sum</span>(l1)<span class="sc">/</span>n_simul)    </span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  poten_d <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">data.frame</span>(potencia_sim))</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(poten_d) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(tam_muestras)</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">modelo =</span> <span class="st">"Exponencial"</span>, <span class="at">sill =</span> parameters[<span class="st">"sill"</span>], </span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Nugget =</span> parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>], </span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>                     <span class="at">RangoPrac =</span> rango_practico_sim)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">cbind</span>(File, poten_d)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  simulate_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(simulate_data, File)</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>simulate_data</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>(Exponencial <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(simulate_data))</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(simulate_data, <span class="st">"C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Exponencial"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Exponencial <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"Modelo exponencial.csv"</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Exponencial</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        modelo sill sill.1 distancia   X20   X40   X60   X80  X100  X120  X140
+1  Exponencial    6    0.3        15 0.134 0.128 0.126  0.14  0.11 0.094 0.108
+2  Exponencial   38    1.9        15 0.132 0.108 0.098  0.13  0.11 0.124 0.106
+3  Exponencial    6      3        15 0.124  0.11 0.112 0.112  0.11 0.116 0.142
+4  Exponencial   38     19        15 0.098 0.128  0.13 0.098 0.124 0.118 0.116
+5  Exponencial    6    5.7        15 0.104  0.15 0.136 0.128 0.134 0.112  0.12
+6  Exponencial   38   36.1        15 0.126 0.112 0.124 0.126 0.114 0.122 0.148
+7  Exponencial    6    0.3       150 0.118 0.174 0.202  0.25 0.298 0.366  0.46
+8  Exponencial   38    1.9       150 0.144 0.194  0.26 0.314 0.416 0.492 0.572
+9  Exponencial    6      3       150 0.148  0.17 0.184 0.224 0.274 0.304 0.348
+10 Exponencial   38     19       150 0.124 0.128 0.144  0.17 0.172 0.224  0.25
+11 Exponencial    6    5.7       150 0.106  0.16  0.13 0.128  0.15 0.188 0.202
+12 Exponencial   38   36.1       150 0.152 0.118 0.118 0.134 0.142 0.156 0.152
+13 Exponencial    6    0.3       285 0.162  0.25 0.452 0.616  0.79 0.902 0.958
+14 Exponencial   38    1.9       285 0.128 0.222  0.39 0.498 0.618 0.778 0.892
+15 Exponencial    6      3       285 0.132 0.176  0.23 0.278 0.282 0.382 0.484
+16 Exponencial   38     19       285  0.13 0.254 0.316 0.424  0.51 0.666  0.75
+17 Exponencial    6    5.7       285 0.116 0.146 0.198  0.26 0.314 0.338 0.452
+18 Exponencial   38   36.1       285 0.122   0.2  0.23  0.27 0.326 0.378 0.438
+    X160  X180  X200
+1  0.104 0.084 0.094
+2  0.132   0.1 0.124
+3  0.128 0.104 0.106
+4  0.142  0.11 0.128
+5  0.122 0.098 0.104
+6  0.104  0.12  0.09
+7  0.508  0.57  0.66
+8  0.676 0.726 0.802
+9  0.408 0.482 0.526
+10 0.202 0.292 0.302
+11 0.198 0.206 0.222
+12 0.202  0.18 0.182
+13 0.984 0.992     1
+14  0.91  0.95 0.972
+15 0.598 0.646 0.742
+16  0.84 0.916  0.94
+17 0.548 0.626  0.69
+18 0.524 0.612 0.688</code></pre>
+</div>
+</div>
+</section>
+<section id="modelo-matérn" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-matérn">Modelo Matérn</h2>
+<p>Con los parámetros definidos al inicio se hace la simulación usando un modelo Matérn.</p>
+<p>Se hace la determinación del rango práctico del modelo Matérn</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fM <span class="ot">&lt;-</span> <span class="cf">function</span>(x, kappa, <span class="at">rho =</span> <span class="fl">0.05</span>, <span class="at">phi =</span> <span class="dv">1</span>, <span class="at">opt =</span> <span class="dv">1</span>){</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (opt <span class="sc">==</span> <span class="dv">1</span>){</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(geoR)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cov.spatial</span>(x, <span class="at">cov.pars =</span> <span class="fu">c</span>(<span class="dv">1</span>,phi), </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">kappa=</span>kappa, <span class="at">cov.model =</span> <span class="st">"matern"</span>) <span class="sc">-</span> rho</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(RandomFields)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    modelo <span class="ot">&lt;-</span> <span class="fu">RMmatern</span>(<span class="at">var =</span> <span class="dv">1</span>, <span class="at">nu =</span> kappa, <span class="at">scale =</span> phi)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">RFcov</span>(modelo, x) <span class="sc">-</span> rho</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">fM</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>), <span class="at">kappa =</span> <span class="dv">1</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">fM</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>), <span class="at">kappa =</span> <span class="dv">2</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>(r1 <span class="ot">&lt;-</span> <span class="fu">uniroot</span>(fM, <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">11</span>), <span class="at">kappa =</span> <span class="dv">1</span>)<span class="sc">$</span>root)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>(r2 <span class="ot">&lt;-</span> <span class="fu">uniroot</span>(fM, <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">11</span>), <span class="at">kappa =</span> <span class="dv">2</span>)<span class="sc">$</span>root)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>RangoP <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>phi1<span class="ot">&lt;-</span>(phi1 <span class="ot">&lt;-</span> RangoP <span class="sc">/</span> r1)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>phi2<span class="ot">&lt;-</span>(phi2 <span class="ot">&lt;-</span> RangoP <span class="sc">/</span> r2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-1" class="level3">
+<h3 class="anchored" data-anchor-id="simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-1">Simulación del modelo con el rango práctico de 300 metros con Kappa = 1</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>RangoP <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>kappax <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fM</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>), <span class="at">kappa =</span> <span class="dv">1</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>(rx <span class="ot">&lt;-</span> <span class="fu">uniroot</span>(fM, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>), <span class="at">kappa =</span> kappax, <span class="at">opt =</span> <span class="dv">1</span>)<span class="sc">$</span>root)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>phi_model<span class="ot">&lt;-</span>(phix <span class="ot">&lt;-</span> RangoP<span class="sc">/</span>rx)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>phi_model</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>simulate_data <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(combinacion <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">18</span>){</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  parameters <span class="ot">&lt;-</span> itera[combinacion,]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  rango_practico_sim <span class="ot">&lt;-</span> rango_practico<span class="sc">*</span>parameters[<span class="st">"distancia"</span>]</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  modeloGauss <span class="ot">&lt;-</span> <span class="fu">vgm</span>(<span class="at">psill=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]), </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">range=</span><span class="fu">as.numeric</span>(rango_practico_sim<span class="sc">/</span>rx), </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nugget=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>]), </span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">model=</span><span class="st">'Mat'</span>, <span class="at">kappa =</span> kappax)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  object <span class="ot">&lt;-</span> <span class="fu">gstat</span>(<span class="at">formula =</span> z<span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locations =</span> <span class="sc">~</span>x<span class="sc">+</span>y, </span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dummy =</span> T, </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">beta =</span> mean, </span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> modeloGauss,</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nmax =</span> <span class="dv">20</span>)</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  coor_sim <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>), <span class="at">y =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>))</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  datosGauss <span class="ot">&lt;-</span> <span class="fu">predict</span>(object, </span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>                        <span class="at">newdata =</span> coor_sim,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>                        <span class="at">nsim =</span> <span class="dv">1</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  tam_muestras <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">20</span>)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>  n_simul <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>  potencia_sim <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tam_muestras)){</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    l1 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simul){</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>      id_muestras   <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(datosGauss), tam_muestras[j])</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>      datosGaussModel_2 <span class="ot">&lt;-</span> datosGauss[id_muestras,]</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>      datosGauss_geo_d <span class="ot">&lt;-</span> <span class="fu">as.geodata</span>(datosGaussModel_2)</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>      semivariograma  <span class="ot">&lt;-</span> <span class="fu">variog</span>(datosGauss_geo_d,</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>                                <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>      mc1 <span class="ot">&lt;-</span> <span class="fu">variog.mc.env</span>(datosGauss_geo_d, <span class="at">obj =</span> semivariograma, <span class="at">nsim =</span> <span class="dv">95</span>,</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>                           <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>      r1 <span class="ot">&lt;-</span> <span class="fu">any</span>(mc1<span class="sc">$</span>v.lower <span class="sc">&gt;</span> semivariograma<span class="sc">$</span>v)</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>      l1 <span class="ot">&lt;-</span> <span class="fu">c</span>(l1,r1)</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>    potencia_sim <span class="ot">&lt;-</span> <span class="fu">c</span>(potencia_sim, <span class="fu">sum</span>(l1)<span class="sc">/</span>n_simul)    </span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>  poten_d <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">data.frame</span>(potencia_sim))</span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(poten_d) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(tam_muestras)</span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">modelo =</span> <span class="st">"Matern"</span>, <span class="at">sill =</span> parameters[<span class="st">"sill"</span>], </span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Nugget =</span> parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>], </span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>                     <span class="at">RangoPrac =</span> rango_practico_sim)</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">cbind</span>(File, poten_d)</span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>  simulate_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(simulate_data, File)</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>simulate_data</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>(MATTERN_KAPPA_1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(simulate_data))</span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(simulate_data, <span class="st">"C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Matérn1"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>MM_K_1 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"Matern_kappa1.csv"</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>MM_K_1</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   modelo sill sill.1 distancia   X20   X40   X60   X80  X100  X120  X140  X160
+1  Matern    6    0.3        15 0.096 0.112 0.108 0.096  0.13 0.114  0.13 0.116
+2  Matern   38    1.9        15 0.114  0.12 0.122 0.114 0.122 0.118 0.092 0.116
+3  Matern    6      3        15 0.126  0.14 0.136 0.112 0.144 0.116 0.116 0.146
+4  Matern   38     19        15 0.118 0.154  0.12 0.122 0.132 0.124 0.116 0.124
+5  Matern    6    5.7        15   0.1 0.114 0.118  0.11 0.138 0.106 0.104 0.114
+6  Matern   38   36.1        15 0.114  0.12 0.128   0.1 0.106 0.132 0.096 0.128
+7  Matern    6    0.3       150  0.14 0.172  0.19 0.244 0.332 0.348 0.462 0.604
+8  Matern   38    1.9       150 0.144  0.16 0.218 0.248  0.31 0.318 0.428 0.504
+9  Matern    6      3       150   0.1 0.144 0.204  0.21  0.25 0.252 0.284 0.364
+10 Matern   38     19       150 0.124 0.186 0.218 0.234 0.256  0.36   0.4 0.448
+11 Matern    6    5.7       150  0.15 0.148  0.16 0.206 0.234 0.302 0.308 0.378
+12 Matern   38   36.1       150  0.12 0.136 0.126 0.176 0.188 0.222 0.246  0.26
+13 Matern    6    0.3       285 0.196 0.398  0.66  0.85 0.928 0.978 0.992     1
+14 Matern   38    1.9       285 0.208 0.472 0.696 0.864 0.936 0.988 0.996     1
+15 Matern    6      3       285 0.126 0.206 0.256 0.314 0.424 0.562  0.63 0.752
+16 Matern   38     19       285 0.138  0.26 0.474 0.632  0.77 0.886 0.962 0.986
+17 Matern    6    5.7       285 0.138 0.176 0.248  0.29 0.388 0.478 0.568 0.624
+18 Matern   38   36.1       285  0.15 0.166 0.234 0.306 0.376 0.498 0.574 0.692
+    X180  X200
+1  0.112 0.078
+2  0.146  0.12
+3  0.092  0.14
+4  0.114  0.08
+5  0.114 0.116
+6  0.124 0.116
+7  0.628  0.72
+8  0.618  0.64
+9  0.388 0.502
+10 0.492 0.538
+11 0.448 0.474
+12 0.292 0.306
+13     1     1
+14     1     1
+15 0.842 0.878
+16 0.994     1
+17  0.72 0.816
+18 0.746  0.81</code></pre>
+</div>
+</div>
+</section>
+<section id="simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-2" class="level3">
+<h3 class="anchored" data-anchor-id="simulación-del-modelo-con-el-rango-práctico-de-300-metros-con-kappa-2">Simulación del modelo con el rango práctico de 300 metros con Kappa = 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>RangoP <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>kappax <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fM</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>), <span class="at">kappa =</span> <span class="dv">2</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>(rx <span class="ot">&lt;-</span> <span class="fu">uniroot</span>(fM, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>), <span class="at">kappa =</span> kappax, <span class="at">opt =</span> <span class="dv">1</span>)<span class="sc">$</span>root)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>phi_model<span class="ot">&lt;-</span>(phix <span class="ot">&lt;-</span> RangoP<span class="sc">/</span>rx)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>phi_model</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>simulate_data <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(combinacion <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">18</span>){</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  parameters <span class="ot">&lt;-</span> itera[combinacion,]</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  rango_practico_sim <span class="ot">&lt;-</span> rango_practico<span class="sc">*</span>parameters[<span class="st">"distancia"</span>]</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  modeloGauss <span class="ot">&lt;-</span> <span class="fu">vgm</span>(<span class="at">psill=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]), </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>                     <span class="at">range=</span><span class="fu">as.numeric</span>(rango_practico_sim<span class="sc">/</span>rx), </span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">nugget=</span><span class="fu">as.numeric</span>(parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>]), </span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">model=</span><span class="st">'Mat'</span>, <span class="at">kappa =</span> kappax)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  object <span class="ot">&lt;-</span> <span class="fu">gstat</span>(<span class="at">formula =</span> z<span class="sc">~</span><span class="dv">1</span>, </span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locations =</span> <span class="sc">~</span>x<span class="sc">+</span>y, </span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dummy =</span> T, </span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">beta =</span> mean, </span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> modeloGauss,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nmax =</span> <span class="dv">20</span>)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  coor_sim <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>), <span class="at">y =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1600</span>, <span class="at">length=</span><span class="dv">200</span>))</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  datosGauss <span class="ot">&lt;-</span> <span class="fu">predict</span>(object, </span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>                        <span class="at">newdata =</span> coor_sim,</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>                        <span class="at">nsim =</span> <span class="dv">1</span>)</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creación de distintos tamaños de muestra </span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>  tam_muestras <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">20</span>)</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  n_simul <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>  potencia_sim <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tam_muestras)){</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>    l1 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_simul){</span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>      id_muestras   <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(datosGauss), tam_muestras[j])</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>      datosGaussModel_2 <span class="ot">&lt;-</span> datosGauss[id_muestras,]</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>      datosGauss_geo_d <span class="ot">&lt;-</span> <span class="fu">as.geodata</span>(datosGaussModel_2)</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>      semivariograma  <span class="ot">&lt;-</span> <span class="fu">variog</span>(datosGauss_geo_d,</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>                                <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>      mc1 <span class="ot">&lt;-</span> <span class="fu">variog.mc.env</span>(datosGauss_geo_d, <span class="at">obj =</span> semivariograma, <span class="at">nsim =</span> <span class="dv">95</span>,</span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>                           <span class="at">messages =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>      r1 <span class="ot">&lt;-</span> <span class="fu">any</span>(mc1<span class="sc">$</span>v.lower <span class="sc">&gt;</span> semivariograma<span class="sc">$</span>v)</span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>      l1 <span class="ot">&lt;-</span> <span class="fu">c</span>(l1,r1)</span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>    potencia_sim <span class="ot">&lt;-</span> <span class="fu">c</span>(potencia_sim, <span class="fu">sum</span>(l1)<span class="sc">/</span>n_simul)    </span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>  poten_d <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">data.frame</span>(potencia_sim))</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(poten_d) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(tam_muestras)</span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">modelo =</span> <span class="st">"Matern"</span>, <span class="at">sill =</span> parameters[<span class="st">"sill"</span>], </span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Nugget =</span> parameters[<span class="st">"sill"</span>]<span class="sc">*</span>parameters[<span class="st">"nugget"</span>], </span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>                     <span class="at">RangoPrac =</span> rango_practico_sim)</span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>  File <span class="ot">&lt;-</span> <span class="fu">cbind</span>(File, poten_d)</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>  simulate_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(simulate_data, File)</span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>simulate_data</span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>(Matter_kappa_2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(simulate_data))</span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(simulate_data, <span class="st">"C:/Users/medes/OneDrive/Desktop/Estadística espacial/Tamaño de muestra/Matérn2"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>MM_K_2 <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">"Matern_kappa2.csv"</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>MM_K_2</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   modelo sill sill.1 distancia   X20   X40   X60   X80  X100  X120  X140  X160
+1  Matern    6    0.3        15 0.112  0.14 0.124 0.138 0.106  0.09 0.106  0.11
+2  Matern   38    1.9        15 0.124  0.12 0.102 0.116 0.116  0.11  0.11 0.124
+3  Matern    6      3        15 0.148 0.112 0.122  0.11 0.112 0.118 0.128 0.136
+4  Matern   38     19        15 0.092 0.128 0.128 0.102 0.124 0.126 0.122 0.132
+5  Matern    6    5.7        15 0.102 0.154 0.154  0.13 0.138 0.116 0.134 0.124
+6  Matern   38   36.1        15  0.13  0.12 0.124 0.128 0.114 0.126 0.148 0.096
+7  Matern    6    0.3       150 0.148 0.206 0.272 0.358 0.484 0.612  0.65 0.762
+8  Matern   38    1.9       150 0.186  0.26 0.438 0.522 0.648 0.762 0.814 0.908
+9  Matern    6      3       150 0.152   0.2 0.272 0.364 0.442 0.566 0.628 0.708
+10 Matern   38     19       150 0.118 0.138 0.184 0.226 0.242 0.334 0.346 0.422
+11 Matern    6    5.7       150  0.11  0.19 0.142 0.162 0.216 0.284 0.316 0.336
+12 Matern   38   36.1       150 0.116 0.134 0.134 0.168 0.226 0.252 0.294  0.29
+13 Matern    6    0.3       285 0.228  0.52 0.844 0.962 0.992 0.998     1     1
+14 Matern   38    1.9       285 0.194 0.464 0.722  0.91 0.972 0.996     1 0.998
+15 Matern    6      3       285  0.16 0.222 0.306  0.47 0.588 0.744 0.864 0.936
+16 Matern   38     19       285 0.178 0.372  0.58 0.744 0.904  0.96 0.976 0.996
+17 Matern    6    5.7       285 0.146 0.188  0.27 0.358 0.502 0.588 0.718 0.814
+18 Matern   38   36.1       285 0.118 0.246 0.314   0.5 0.558 0.664 0.784 0.878
+    X180  X200
+1  0.092 0.084
+2  0.104 0.108
+3    0.1 0.098
+4  0.096 0.102
+5   0.09 0.096
+6   0.14  0.09
+7  0.818 0.858
+8  0.928  0.96
+9   0.79 0.868
+10 0.524 0.552
+11 0.404 0.458
+12 0.322 0.358
+13     1     1
+14     1     1
+15  0.95 0.976
+16     1     1
+17  0.89  0.92
+18 0.908  0.94</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="análisis-de-resultados" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-resultados">Análisis de resultados</h2>
+<p>En el escenario con el modelo Gaussiano, modelado al 0.05 (rango práctico de 15 metros) e independiente del número de muestras que se tomen de materia orgánica, se observa que hay una probabilidad muy alta de equivocarse al intentar detectar estructura espacial, ya que la potencia de la prueba es demasiado baja, presentando valores de 0.14 hacia abajo.</p>
+<p>En el modelo Gaussiano, con un rango práctico de 150 metros, en el escenario moelado al 0.05, con un mínimo de 120 datos de materia orgánica se alcanza una potencia de la prueba del 0.756, es decir, que con un tamaño de muestra de mínimo 120 datos, hay una alta probabilidad (75.6%) de no equivocarse al intentar detectar estructura espacial. Al aumentar la varianza en este mismo escenario, se observa que se debe aumentar el tamaño mínimo de muestra a 140 datos para que sea aceptable la potencia de la prueba.</p>
+<p>Los escenarios a los cuales se ajusta mejor el modelo Gaussiano, es decir los escenarios en los cuales el tamaño mínimo de muestra es menor para no equivocarse al intentar detectar estructura espacial son los modelos con el rango práctico de 285 metros al 0.05, ya que la potencia de la prueba en ambos escenarios (varianza alta y baja) es superior al 0.75 con sólo 40 datos.</p>
+<p>Los escenarios del modelo exponencial, al intentar detectar estructura espacial con un rango práctico de 15 metros, la potencia de la prueba es bastante baja, por lo cual existe una enorme probbilidad de equivocarse al intentar detectar estructura espacial.</p>
+<p>Los escenarios del modelo exponencial con un rango práctico de 150 metros, son muy poco útiles para intentar detectar estructura espacial, es decir, hay una alta probabilidad de equivocarse, ni si quiera con un mínimo de 200 datos.</p>
+<p>Los escenarios de los modelos exponenciales con un rango práctico de 285 metros (0.05 y 0.5), sirven para intentar detectar estructura espacial, ya que con oca varianza y un tamaño mínimo de 100 muestras, la potencia de la prueba es aceptable por lo cual hay una muy baja probabilidad de equivocarse.</p>
+<p>Los escenarios en el modelo Matern (kappa = 1), tanto a 15 metros como a 15 metros de rango práctico no son útiles para encontrar estructura espacal, ya que la potencia de la prueba es menor a 0.70. El mejor escenario para disminuir la probabilidad de error al intentar detectar estructura espacial con el tamaño de muestra mas pequeño (80 datos) es con un rango práctico de 285 metros (0.05).</p>
+<p>Al igual que los escenarios anteriores, el modelo Matern con kappa = 2, los resultados son bastante similares, aunque en este nuevo modelo Matern, el tamaño mínimo de muestra para que la potencia de la prueba sea aceptable es de 60 muestras con un rango práctico de 285 metros.</p>
+<p>Finalmente, la distribución espacial de la variable de estudio, en este caso materia orgánica, se ajusta mejor al modelo Gaussiano, ya que con un tamaño mínimo de 40 muestras en un área de 3200 metros cuadrados tengo una potencia de la prueba superior al 0.7, lo cual la probabilidad de equivocación al intentar detectar estructura espacial es muy baja.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
